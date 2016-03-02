@@ -2,13 +2,13 @@
 
 [How to] (https://github.com/abrozzi/microbio#how-to)
 
-* [Git and Rstudio](https://github.com/abrozzi/microbio#git-rstudio)
+* [Git and RStudio](https://github.com/abrozzi/microbio#git-rstudio)
 
 
 How to
 ====
 
-### Git and Rstudio build-package installation and configuration:
+### Git and RStudio 
 
 1 - Create by RStudio a project to build a package:
 
