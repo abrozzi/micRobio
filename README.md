@@ -2,8 +2,8 @@
 
 [How to] (https://github.com/abrozzi/microbio#how-to)
 
-* [Git and RStudio](https://github.com/abrozzi/microbio#git-rstudio)
-* [Install pyclone] (https://github.com/abrozzi/microbio#pyclone-inst)
+* [Git and RStudio](#git-rstudio)
+* [Install pyclone] (#pyclone-inst)
 
 How to
 ====
