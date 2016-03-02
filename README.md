@@ -11,14 +11,21 @@
 3. Move to the local package directory and:
 
 > cd ~/ab/mypack
+
 > git init
+
 > git add .
+
 > git commit -m "first commit"
+
 > git remote add origin https://github.com/ab/mypack.git
+
 > git push -u origin master
 
 4. In Rstudio you can do the same by Git menu: commit -> push-
 
 5. If you need proxy add in your home a file .Renviron with the following lines:
+
 > http_proxy="http://myproxy.net:port"
+
 > https_proxy="https://myproxy.net:2011"
