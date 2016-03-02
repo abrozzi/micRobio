@@ -39,21 +39,26 @@ How to
 > https_proxy="https://myproxy.net:2011"
 
 ### Install pyclone
+This is fo Mac users.
 
-'export http_proxy=http://chbs-dmz-proxy01.nibr.novartis.net:2011'
+1 - Make sure you have rigth proxy set up. In a terminal:
 
-'export https_proxy=https://chbs-dmz-proxy01.nibr.novartis.net:2011'
+> export http_proxy=http://myproxy.net:port
 
-wget https://repo.continuum.io/miniconda/Miniconda-latest-MacOSX-x86_64.sh
+> export https_proxy=https://myproxy.net:port
 
-bash Miniconda-latest-MacOSX-x86_64.sh
+2 - Download and install Miniconda:
 
-/Users/ab/miniconda2/bin/./conda install numpy
+> wget https://repo.continuum.io/miniconda/Miniconda-latest-MacOSX-x86_64.sh
 
-/Users/ab/miniconda2/bin/./conda install pyclone -c aroth85
+> bash Miniconda-latest-MacOSX-x86_64.sh
 
-# RUN
+3 - Install numpy:
 
-sudo PyClone run_analysis_pipeline --in_files Model1_ploidy1_PyCloneInput_primary.tsv --working_dir /Users/ab/marghe/
+> /Users/ab/miniconda2/bin/./conda install numpy
 
-sudo PyClone plot_loci --config_file config.yaml --plot_file Model1_ploidy1_PyCloneInput_primary_PLOT --plot_type density
+4- Install pyclone:
+
+> /Users/ab/miniconda2/bin/./conda install pyclone -c aroth85
+
+You might use sudo
