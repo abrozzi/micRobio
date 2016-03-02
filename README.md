@@ -3,7 +3,7 @@
 Git and Rstudio build-package installation and configuration:
 ---
 
-1 - Create by Rstudio a project to build a package:
+1 - Create by RStudio a project to build a package:
 
 > ~/ab/mypack
 
