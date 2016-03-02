@@ -1,5 +1,10 @@
 # microbio
 
+[How to] (https://github.com/abrozzi/microbio#howto)
+
+How to
+====
+
 Git and Rstudio build-package installation and configuration:
 ---
 
