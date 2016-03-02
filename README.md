@@ -1,5 +1,5 @@
 # microbio
-A set of R functions, tools, utilities and wrappers to perform bionformatic analyses applied to microbiology data.
+A set of R functions, tools, utilities and wrappers to perform bionformatic analyses applied to Microbiology.
 
 [How to] (https://github.com/abrozzi/microbio#how-to)
 
