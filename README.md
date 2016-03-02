@@ -2,7 +2,7 @@
 
 [How to] (https://github.com/abrozzi/microbio#how-to)
 
-* [Git and Rstudio](https://github.com/katholt/srst2#git-rstudio)
+* [Git and Rstudio](https://github.com/abrozzi/microbio#git-rstudio)
 
 
 How to
