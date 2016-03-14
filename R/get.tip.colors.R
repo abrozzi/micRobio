@@ -5,6 +5,7 @@
 #' @return a list of two entries: colors with the vector of colors and legend with a vector associating color to levels. Legend is useful to add the legned to the plot.
 #' @examples
 #' require(ape)
+#' ### From Saitou and Nei (1987, Table 1):
 #' x <- c(7, 8, 11, 13, 16, 13, 17, 5, 8, 10, 13,
 #' 10, 14, 5, 7, 10, 7, 11, 8, 11, 8, 12,
 #' 5, 6, 10, 9, 13, 8)
@@ -14,29 +15,35 @@
 #'M [lower.tri(M)] <- x
 #' dimnames(M) <- list(1:8, 1:8)
 #' tr <- nj(M)
-#' tip2category = c(rep(c("hs","mm"),c(4,2)), NA)
+#' ### Suppose that tips 1 to 4 are h.sapiens, 5 and 6 are m.musculs, 7 is NA and 8 is unassigned.
+#' tip2category = c(rep(c("h.sapiens","m.musculs"),c(4,2)), NA)
 #' names(tip2category) = 1:7
 #' colors = get.tip.colors(tr, tip2category, na.col="black", unassigned.col="gray")[["colors"]]
 #' legenda = get.tip.colors(tr, tip2category, na.col="black", unassigned.col="gray")[["legend"]]
-#' plot(tr, "u", tip.color=colors)
+#' plot(tr, "u", tip.color=colors, cex=2)
 #' legend("bottomleft", legenda, pch=20, col=names(legenda))
 #' @export
 #'
-get.tip.colors = function(tree, tip2category, na.col="black", unassigned.col="gray"){
+get.tip.colors = function(tree, tip2category, na.col="black", unassigned.col="gray", palette=NULL){
 
   if(!any(class(tree)=="phylo")){stop("tree must be an object of class phylo")}
 
   if(is.null(names(tip2category))) {stop("tip2category must be a named vector")}
 
+  if(na.col==unassigned.col) {stop("na and unassigned colors must be different")}
+
   N = length(tree$tip.label)
 
-  cols= rep("gray",N)
+  cols= rep(unassigned.col,N)
   cols[is.na(tip2category)]=na.col
 
   levels = unique(tip2category[!is.na(tip2category)])
   n = length(levels)
 
-  palette = rainbow(n)
+  if(is.null(palette)) {palette = rainbow(n)}
+
+
+
   names(levels) = palette
 
   for (i in 1:n) {
