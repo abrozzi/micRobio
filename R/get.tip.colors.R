@@ -24,7 +24,7 @@
 #' legend("bottomleft", legenda, pch=20, col=names(legenda))
 #' @export
 #'
-get.tip.colors = function(tree, tip2category, na.col="black", unassigned.col="gray", palette=NULL){
+assign.tip.colors = function(tree, tip2category, na.col="black", unassigned.col="gray", palette=NULL){
   require(plotrix)
   tip2category = as.character(tip2category)
 
