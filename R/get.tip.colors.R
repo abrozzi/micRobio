@@ -25,6 +25,8 @@
 #' @export
 #'
 get.tip.colors = function(tree, tip2category, na.col="black", unassigned.col="gray", palette=NULL){
+  require(plotrix)
+  tip2category = as.character(tip2category)
 
   if(!any(class(tree)=="phylo")){stop("tree must be an object of class phylo")}
 
@@ -40,9 +42,17 @@ get.tip.colors = function(tree, tip2category, na.col="black", unassigned.col="gr
   levels = unique(tip2category[!is.na(tip2category)])
   n = length(levels)
 
-  if(is.null(palette)) {palette = rainbow(n)}
+  if(is.null(palette)) {
 
+    palette = rainbow(n)
 
+      if(any(na.col==palette) | any(unassigned.col==palette)) {
+        col.pal= sapply(palette,color.id)
+        col.vec = unlist(col.pal)
+        names(col.vec) = rep(names(col.pal), sapply(col.pal, length))
+        stop(paste("na.col or unassigned.col are in conflict with one of the colors in use: ", paste(col.vec, collapse=" ")) )
+  }
+  }
 
   names(levels) = palette
 
