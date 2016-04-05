@@ -26,11 +26,12 @@
 #'
 assign.tip.colors = function(tree, tip2category, na.col="black", unassigned.col="gray", palette=NULL){
   require(plotrix)
-  tip2category = as.character(tip2category)
+
+  #tip2category = as.character(tip2category)
 
   if(!any(class(tree)=="phylo")){stop("tree must be an object of class phylo")}
 
-  if(is.null(names(tip2category))) {stop("tip2category must be a named vector")}
+  if(is.null(names(tip2category))) {stop("tip2category must be a character vector with names")}
 
   if(na.col==unassigned.col) {stop("na and unassigned colors must be different")}
 
