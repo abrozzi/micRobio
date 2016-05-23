@@ -50,7 +50,14 @@ end.VERTICES = ends[ends>start.VERTICES][1]
 start.VLABELS =  match("VLABELS", file)
 end.VLABELS =  ends[ends>start.VLABELS][1]
 
-for (i in 1:length(file)){
+total = length(file)
+
+progBar <- txtProgressBar(min = 0, max = total, style = 3)
+
+for (i in 1:total){
+
+  setTxtProgressBar(progBar, i)
+
   lineToPrint = file[i]
 
   if(i > (start.VERTICES+1) & i < (end.VERTICES-1) ) {
