@@ -1,4 +1,12 @@
-
+#' @title Get tips from dendrogram
+#' @description Reads a nexus file and returns the tips
+#' @param nexus.file
+#' @return a dataframe with tips and verteces index
+#' @examples
+#' inputfile <- file.path(path.package('microbio'),'input.nexus')
+#' get.nexus.tips(nexus.file=inputfile)
+#' @export
+#'
 get.nexus.tips <- function(nexus.file,fromBIGSdb=FALSE){
 
   file = readLines(nexus.file)

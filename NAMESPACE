@@ -2,4 +2,5 @@
 
 export(add.nex.features)
 export(assign.tip.colors)
+export(get.nexus.tips)
 export(hello)

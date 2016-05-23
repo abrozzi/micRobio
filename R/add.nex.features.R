@@ -12,39 +12,18 @@
 #' add.nex.features(nexus.file=inputfile, tips=tips, colors=col, outfile=outfile)
 #' @export
 #'
-add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE) {
+add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE, fg="0 0 0", vlabels=TRUE) {
+
+  if(file.exists(outfile)) {
+    system(paste("rm", outfile))
+  }
 
   file = readLines(nexus.file)
   startTRANS = match("TRANSLATE", file)
   ends = which(file == ";")
   endTRANS = ends[ends>startTRANS][1]
 
-  map=list()
-
-  for(i in (startTRANS+1):(endTRANS-1)) {
-    line = file[i]
-    item0 = unlist(strsplit(line," "))
-
-    key = item0[1]
-
-    values0 = item0[2:length(item0)]
-
-    values1 = sapply(values0, function(x) gsub(x=x, pat=",", rep=""))
-    values2 = sapply(values1, function(x) gsub(x=x, pat="'", rep=""))
-
-    if(fromBIGSdb){
-      values3 = sapply(values2, function(x) unlist(strsplit(x,"\\|"))[2])
-    } else {
-      values3 = values2
-      }
-
-    map[[key]] = values3
-
-  }
-
-map.df = data.frame(vertex_id = rep(names(map), sapply(map, length)), tips=unlist(map), stringsAsFactors = FALSE)
-map.df$vertex_id = as.character(map.df$vertex_id)
-rownames(map.df)=NULL
+  map.df = get.nexus.tips(nexus.file=nexus.file, fromBIGSdb = fromBIGSdb)
 
 if( length(tips)!=nrow(map.df) ) {
   stop("'tips' must be a character vector of the same length of taxa")
@@ -62,11 +41,14 @@ if( length(tips)!=length(colors) ) {
   stop("'colors' must be a character vector of the same length of tips")
   }
 
-map.df$color = colors[match(tips, map.df$tips)]
+map.df$color = colors[match(map.df$tips, tips)]
 map.df$color = as.character(map.df$color)
 
 start.VERTICES = match("VERTICES", file)
 end.VERTICES = ends[ends>start.VERTICES][1]
+
+start.VLABELS =  match("VLABELS", file)
+end.VLABELS =  ends[ends>start.VLABELS][1]
 
 for (i in 1:length(file)){
   lineToPrint = file[i]
@@ -84,18 +66,26 @@ for (i in 1:length(file)){
 
       tmp0 = paste(bits[1:3], collapse = " ")
       tmp0 = gsub(x=tmp0, pat=",", rep="")
-      lineToPrint = paste0(tmp0, " w=8 h=8 s=r fg=", rgb," bg=", rgb,",")
+      lineToPrint = paste0(tmp0, " w=8 h=8 s=o fg=", fg," bg=", rgb,",")
 
     }
 
   }
 
-  if(file.exists(outfile)) {
-  system(paste("rm", outfile))
+  if(vlabels==FALSE){
+
+    if(i > (start.VLABELS) & i < (end.VLABELS) ) {
+
+      b = unlist(strsplit(lineToPrint,""))
+      idx = grep("'",b)
+      M = matrix(c(1,idx,length(b)), ncol=2, byrow = T)
+      pieces = apply(M, 1, function(x) substr(lineToPrint, start = x[1], stop=x[2]))
+      lineToPrint = paste(pieces, collapse="")
+    }
   }
 
   cat(lineToPrint,"\n", file=outfile, append=TRUE,sep = "")
 
-}
+} # closes for()
 
 }
