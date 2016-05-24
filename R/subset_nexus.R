@@ -5,7 +5,7 @@
 #' @return a nexus file with subset distant matrix
 #' @export
 #'
-subset.nexus <- function(nexus.file, tips, outfile, fromBIGSdb=FALSE){
+subset_nexus <- function(nexus.file, tips, outfile, fromBIGSdb=FALSE){
 
   if(file.exists(outfile)) {
     system(paste("rm", outfile))
