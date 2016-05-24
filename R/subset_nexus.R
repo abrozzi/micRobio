@@ -59,7 +59,7 @@ A_hat2 = A_hat1[,colnames(A_hat1) %in% tips]
 cat("#NEXUS","\n", file=outfile, append=TRUE,sep = "")
 
 cat("BEGIN taxa;","\n", file=outfile, append=TRUE,sep = "")
-dimensions = paste0("DIMENSIONS ntax = ", length(keep),";")
+dimensions = paste0("DIMENSIONS ntax = ", length(tips),";")
 cat(dimensions,"\n", file=outfile, append=TRUE,sep = "")
 cat("END;","\n", file=outfile, append=TRUE,sep = "")
 
