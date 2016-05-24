@@ -39,9 +39,11 @@ subset_nexus <- function(nexus.file, tips, outfile, fromBIGSdb=FALSE){
 
  L[[id]]=line[-1]
 
-}
+  }
 
-A = matrix(NA,ncol=114,nrow=114)
+n = length(L)
+
+A = matrix(NA,ncol=n,nrow=n)
 
 for(i in 1:length(L)) {
   columns = length(L[[i]])
