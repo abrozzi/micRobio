@@ -53,9 +53,8 @@ for(i in 1:length(L)) {
 rownames(A) = ids
 colnames(A) = ids
 
-keep = match(tips, rownames(A))
-
-A_hat = A[keep,keep]
+A_hat1 = A[rownames(A) %in% tips,]
+A_hat2 = A_hat1[,colnames(A_hat1) %in% tips]
 
 cat("#NEXUS","\n", file=outfile, append=TRUE,sep = "")
 
@@ -74,9 +73,9 @@ cat("missing=?","\n", file=outfile, append=TRUE,sep = "")
 cat(";","\n", file=outfile, append=TRUE,sep = "")
 cat("MATRIX","\n", file=outfile, append=TRUE,sep = "")
 
-for (i in 1:nrow(A_hat)){
+for (i in 1:nrow(A_hat2)){
 
-lineToPrint = c(rownames(A_hat)[i], A_hat[i,])
+lineToPrint = c(rownames(A_hat2)[i], A_hat2[i,])
 
 lineToPrint = lineToPrint[!is.na(lineToPrint)]
 lineToPrint = paste(lineToPrint, collapse="\t")
