@@ -1,0 +1,18 @@
+#NEXUS
+BEGIN taxa;
+DIMENSIONS ntax = 3;
+END;
+BEGIN distances;
+DIMENSIONS ntax = 3;
+FORMAT
+triangle=LOWER
+diagonal
+labels
+missing=?
+;
+MATRIX
+ARG-3322	0
+ARG-3325	1425	0
+ARG-3328	1412	372	0
+;
+END;
