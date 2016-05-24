@@ -73,7 +73,16 @@ cat("missing=?","\n", file=outfile, append=TRUE,sep = "")
 cat(";","\n", file=outfile, append=TRUE,sep = "")
 cat("MATRIX","\n", file=outfile, append=TRUE,sep = "")
 
-for (i in 1:nrow(A_hat2)){
+cat("Print file","\n")
+
+total = nrow(A_hat2)
+progBar <- txtProgressBar(min = 0, max = total, style = 3)
+
+for (i in 1:total){
+
+  total = length(file)
+
+  progBar <- txtProgressBar(min = 0, max = total, style = 3)
 
 lineToPrint = c(rownames(A_hat2)[i], A_hat2[i,])
 
