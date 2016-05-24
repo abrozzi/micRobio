@@ -7,6 +7,10 @@
 #'
 subset.nexus <- function(nexus.file, tips, outfile, fromBIGSdb=FALSE){
 
+  if(file.exists(outfile)) {
+    system(paste("rm", outfile))
+  }
+
   file = readLines(nexus.file)
   start.MATRIX = match("MATRIX", file)
   ends = which(file == "END;")
