@@ -75,9 +75,13 @@ for (i in 1:total){
       tmp0 = gsub(x=tmp0, pat=",", rep="")
       lineToPrint = paste0(tmp0, " w=8 h=8 s=o fg=", fg," bg=", rgb,",")
 
+    } else {
+      tmp0 = paste(bits[1:3], collapse = " ")
+      tmp0 = gsub(x=tmp0, pat=",", rep="")
+      lineToPrint = paste0(tmp0, " fg=1 1 1 bg=1 1 1,")
     }
 
-  }
+  } #closes VERTEX BLOCK
 
   if(vlabels==FALSE){
 
