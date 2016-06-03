@@ -3,6 +3,9 @@
 #' @param nexus.file
 #' @param tips (leaves of the dendrogram)
 #' @param colors
+#' @param w weigth of the tip
+#' @param h height of the tip
+#' @param s shape of the tip "o" is oval
 #' @return a new nexus file with color
 #' @examples
 #' inputfile <- file.path(path.package('microbio'),'input.nexus')
@@ -12,7 +15,7 @@
 #' add.nex.features(nexus.file=inputfile, tips=tips, colors=col, outfile=outfile)
 #' @export
 #'
-add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE, fg="0 0 0", vlabels=TRUE) {
+add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE, fg="1 1 1", vlabels=TRUE,w=20,h=20,s="o") {
 
   if(file.exists(outfile)) {
     system(paste("rm", outfile))
@@ -73,7 +76,7 @@ for (i in 1:total){
 
       tmp0 = paste(bits[1:3], collapse = " ")
       tmp0 = gsub(x=tmp0, pat=",", rep="")
-      lineToPrint = paste0(tmp0, " w=8 h=8 s=o fg=", fg," bg=", rgb,",")
+      lineToPrint = paste0(tmp0, " w=",w, " h=",h, " s=",s, " fg=", fg," bg=", rgb,",")
 
     } else {
       tmp0 = paste(bits[1:3], collapse = " ")
