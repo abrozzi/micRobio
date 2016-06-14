@@ -3,7 +3,7 @@
 #' @param nexus.file
 #' @param tips (leaves of the dendrogram)
 #' @param colors
-#' @param w weigth of the tip
+#' @param w width of the tip
 #' @param h height of the tip
 #' @param s shape of the tip "o" is oval
 #' @return a new nexus file with color

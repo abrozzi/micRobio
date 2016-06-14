@@ -5,10 +5,16 @@
 \title{Color SplitsTree dendrograms}
 \usage{
 add.nex.features(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE,
-  fg = "0 0 0", vlabels = TRUE)
+  fg = "1 1 1", vlabels = TRUE, w = 20, h = 20, s = "o")
 }
 \arguments{
 \item{tips}{(leaves of the dendrogram)}
+
+\item{w}{width of the tip}
+
+\item{h}{height of the tip}
+
+\item{s}{shape of the tip "o" is oval}
 }
 \value{
 a new nexus file with color
