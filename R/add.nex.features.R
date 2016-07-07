@@ -15,7 +15,7 @@
 #' add.nex.features(nexus.file=inputfile, tips=tips, colors=col, outfile=outfile)
 #' @export
 #'
-add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE, fg="1 1 1", vlabels=TRUE,w=20,h=20,s="o") {
+add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE, fg="1 1 1", vlabels="default",w=20,h=20,s="o") {
 
   if(file.exists(outfile)) {
     system(paste("rm", outfile))
@@ -46,6 +46,13 @@ if( length(tips)!=length(colors) ) {
 
 map.df$color = colors[match(map.df$tips, tips)]
 map.df$color = as.character(map.df$color)
+
+if(vlabels!="none" & vlabels!="default"){
+
+  map.df$vlabels = vlabels[match(map.df$tips, tips)]
+  map.df$vlabels = as.character(map.df$vlabels)
+
+}
 
 start.VERTICES = match("VERTICES", file)
 end.VERTICES = ends[ends>start.VERTICES][1]
@@ -86,7 +93,7 @@ for (i in 1:total){
 
   } #closes VERTEX BLOCK
 
-  if(vlabels==FALSE){
+  if(vlabels=="none"){
 
     if(i > (start.VLABELS) & i < (end.VLABELS) ) {
 
@@ -96,7 +103,25 @@ for (i in 1:total){
       pieces = apply(M, 1, function(x) substr(lineToPrint, start = x[1], stop=x[2]))
       lineToPrint = paste(pieces, collapse="")
     }
-  }
+  } # closes IF VLABELS
+
+  if(vlabels!="none" & vlabels!="default"){
+
+    if(i > (start.VLABELS) & i < (end.VLABELS) ) {
+
+      bits = unlist(strsplit(lineToPrint," "))
+      vertex_id = bits[1]
+
+      pos = match(vertex_id, map.df$vertex_id)
+
+      vlab = map.df$vlabels[pos]
+
+      pieces = c(bits[1],"'",vlab,"'", bits[3:length(bits)])
+
+      lineToPrint = paste(pieces, collapse=" ")
+    }
+  } # closes IF VLABELS
+
 
   cat(lineToPrint,"\n", file=outfile, append=TRUE,sep = "")
 
