@@ -5,7 +5,7 @@
 \title{Color SplitsTree dendrograms}
 \usage{
 add.nex.features(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE,
-  fg = "1 1 1", vlabels = TRUE, w = 20, h = 20, s = "o")
+  fg = "1 1 1", vlabels = "default", w = 20, h = 20, s = "o")
 }
 \arguments{
 \item{tips}{(leaves of the dendrogram)}

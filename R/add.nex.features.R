@@ -3,6 +3,7 @@
 #' @param nexus.file
 #' @param tips (leaves of the dendrogram)
 #' @param colors
+#' @param vlabels
 #' @param w width of the tip
 #' @param h height of the tip
 #' @param s shape of the tip "o" is oval
@@ -47,7 +48,7 @@ if( length(tips)!=length(colors) ) {
 map.df$color = colors[match(map.df$tips, tips)]
 map.df$color = as.character(map.df$color)
 
-if(vlabels!="none" & vlabels!="default"){
+if(length(vlabels)>1){
 
   map.df$vlabels = vlabels[match(map.df$tips, tips)]
   map.df$vlabels = as.character(map.df$vlabels)
@@ -93,7 +94,10 @@ for (i in 1:total){
 
   } #closes VERTEX BLOCK
 
-  if(vlabels=="none"){
+  ###################
+  if(length(vlabels)==1){
+
+    if(vlabels=="none"){
 
     if(i > (start.VLABELS) & i < (end.VLABELS) ) {
 
@@ -103,9 +107,11 @@ for (i in 1:total){
       pieces = apply(M, 1, function(x) substr(lineToPrint, start = x[1], stop=x[2]))
       lineToPrint = paste(pieces, collapse="")
     }
-  } # closes IF VLABELS
+  }
+}
+  ###################
 
-  if(vlabels!="none" & vlabels!="default"){
+  if(length(vlabels)>1){
 
     if(i > (start.VLABELS) & i < (end.VLABELS) ) {
 
