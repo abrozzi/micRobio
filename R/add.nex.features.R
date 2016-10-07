@@ -7,7 +7,7 @@
 #' @param w width of the tip
 #' @param h height of the tip
 #' @param s shape of the tip "o" is oval
-#' @return a new nexus file with color
+#' @return a new nexus file with colors
 #' @examples
 #' inputfile <- file.path(path.package('microbio'),'input.nexus')
 #' outfile <- file.path(path.package('microbio'),'output.nexus')
