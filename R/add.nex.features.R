@@ -55,6 +55,26 @@ if(length(vlabels)>1){
 
 }
 
+# set w and h fpr each node
+map.df$w = NA
+map.df$h = NA
+
+if (length(w)==1) {
+map.df$w = w
+} else {
+
+  map.df$w = w[match(map.df$tips, tips)]
+  map.df$w = as.character(map.df$w)
+
+}
+
+if (length(h)==1) {
+  map.df$h = h
+} else {
+  map.df$h = h[match(map.df$tips, tips)]
+  map.df$h = as.character(map.df$h)
+}
+
 start.VERTICES = match("VERTICES", file)
 end.VERTICES = ends[ends>start.VERTICES][1]
 
@@ -84,7 +104,7 @@ for (i in 1:total){
 
       tmp0 = paste(bits[1:3], collapse = " ")
       tmp0 = gsub(x=tmp0, pat=",", rep="")
-      lineToPrint = paste0(tmp0, " w=",w, " h=",h, " s=",s, " fg=", fg," bg=", rgb,",")
+      lineToPrint = paste0(tmp0, " w=",map.df$w[pos], " h=",map.df$h[pos], " s=",s, " fg=", fg," bg=", rgb,",")
 
     } else {
       tmp0 = paste(bits[1:3], collapse = " ")

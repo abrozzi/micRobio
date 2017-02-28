@@ -17,7 +17,7 @@ add.nex.features(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE,
 \item{s}{shape of the tip "o" is oval}
 }
 \value{
-a new nexus file with color
+a new nexus file with colors
 }
 \description{
 Reads a nexus file and adds colors to the leaves
