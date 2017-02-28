@@ -27,6 +27,8 @@ inputfile <- file.path(path.package('microbio'),'input.nexus')
 outfile <- file.path(path.package('microbio'),'output.nexus')
 tips <- c("A","R","G","B")
 col <- c("red","blue","green","yellow")
-add.nex.features(nexus.file=inputfile, tips=tips, colors=col, outfile=outfile)
+ws <- c(10,20,30,40)
+hs <- c(10,20,30,40)
+add.nex.features(nexus.file=inputfile, tips=tips, colors=col, w=ws, h=hs, outfile=outfile)
 }
 

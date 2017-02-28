@@ -93,7 +93,7 @@ for (i in 1:total){
 
   lineToPrint = file[i]
 
-  if(i > (start.VERTICES+1) & i < (end.VERTICES-1) ) {
+  if(i > (start.VERTICES) & i < (end.VERTICES) ) {
 
     bits = unlist(strsplit(lineToPrint," "))
     vertex_id = bits[1]
