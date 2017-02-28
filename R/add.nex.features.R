@@ -13,7 +13,9 @@
 #' outfile <- file.path(path.package('microbio'),'output.nexus')
 #' tips <- c("A","R","G","B")
 #' col <- c("red","blue","green","yellow")
-#' add.nex.features(nexus.file=inputfile, tips=tips, colors=col, outfile=outfile)
+#' ws <- c(10,20,30,40)
+#' hs <- c(10,20,30,40)
+#' add.nex.features(nexus.file=inputfile, tips=tips, colors=col, w=ws, h=hs, outfile=outfile)
 #' @export
 #'
 add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE, fg="1 1 1", vlabels="default",w=20,h=20,s="o") {
