@@ -3,10 +3,11 @@
 #' @param nexus.file
 #' @param tips (leaves of the dendrogram)
 #' @param colors
-#' @param vlabels
+#' @param vlabels. f='Times New Roman-BOLD-10' lc=204 0 0 lk=0 255 255
+#' @param fonts. 'taxon_X' x=9 y=41 f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN
 #' @param w width of the tip
 #' @param h height of the tip
-#' @param s shape of the tip "o" is oval
+#' @param s shape of the tip "o" is oval. The other oprion is "r" rectangle.
 #' @return a new nexus file with colors
 #' @examples
 #' inputfile <- file.path(path.package('microbio'),'input.nexus')

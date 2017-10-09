@@ -16,4 +16,3 @@ Reads a nexus file and returns the tips
 inputfile <- file.path(path.package('microbio'),'input.nexus')
 get.nexus.tips(nexus.file=inputfile)
 }
-

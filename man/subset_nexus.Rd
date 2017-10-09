@@ -12,4 +12,3 @@ a nexus file with subset distant matrix
 \description{
 Reads a nexus file and the tips one wants to keep. It create a nexus file with the selected tips
 }
-

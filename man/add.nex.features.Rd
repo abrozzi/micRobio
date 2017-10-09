@@ -14,7 +14,11 @@ add.nex.features(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE,
 
 \item{h}{height of the tip}
 
-\item{s}{shape of the tip "o" is oval}
+\item{s}{shape of the tip "o" is oval. The other oprion is "r" rectangle.}
+
+\item{vlabels.}{f='Times New Roman-BOLD-10' lc=204 0 0 lk=0 255 255}
+
+\item{fonts.}{'taxon_X' x=9 y=41 f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN}
 }
 \value{
 a new nexus file with colors
@@ -31,4 +35,3 @@ ws <- c(10,20,30,40)
 hs <- c(10,20,30,40)
 add.nex.features(nexus.file=inputfile, tips=tips, colors=col, w=ws, h=hs, outfile=outfile)
 }
-

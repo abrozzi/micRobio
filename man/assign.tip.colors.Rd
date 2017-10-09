@@ -38,4 +38,3 @@ legenda = assign.tip.colors(tr, tip2category, na.col="black", unassigned.col="gr
 plot(tr, "u", tip.color=colors, cex=2)
 legend("bottomleft", legenda, pch=20, col=names(legenda))
 }
-
