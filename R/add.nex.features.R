@@ -138,16 +138,28 @@ for (i in 1:total){
 
     if(i > (start.VLABELS) & i < (end.VLABELS) ) {
 
-      bits = unlist(strsplit(lineToPrint," "))
-      vertex_id = bits[1]
+       bits = unlist(strsplit(lineToPrint," "))
+       vertex_id = bits[1]
 
-      pos = match(vertex_id, map.df$vertex_id)
+       pos = match(vertex_id, map.df$vertex_id)
 
-      vlab = map.df$vlabels[pos]
+       vlab = map.df$vlabels[pos]
+#
+#       pieces = c(bits[1],"'",vlab,"'", bits[3:length(bits)])
+#
+#       lineToPrint = paste(pieces, collapse=" ")
 
-      pieces = c(bits[1],"'",vlab,"'", bits[3:length(bits)])
+      atomic = unlist(strsplit(lineToPrint,""))
+      limits = which(atomic %in% "'")
+      start = limits[1]
+      end = limits[2]
 
-      lineToPrint = paste(pieces, collapse=" ")
+      lineToPrint = paste0(
+          paste(atomic[1:start], collapse=""),
+        vlab,
+        paste(atomic[end:length(atomic)], collapse="")
+        )
+
     }
   } # closes IF VLABELS
 
