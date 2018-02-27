@@ -2,14 +2,14 @@
 #' @description Reads a nexus file and adds colors to the leaves
 #' @param nexus.file
 #' @param tips (leaves of the dendrogram)
-#' @param colors
-#' @param vlabels
-#' @param f fonts of the labels f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN
-#' @param lc
-#' @param lk
-#' @param w width of the tip
-#' @param h height of the tip
-#' @param s shape of the tip "o" is oval. The other oprion is "r" rectangle.
+#' @param colors vector of the same length of the tips indicating the color of each tip
+#' @param vlabels vector of labels to be plot; leave empty character "" to hide the label.
+#' @param f fonts of the labels. Like "Dialog-BOLD-16" or 'Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN
+#' @param lc vector of label colors
+#' @param lk vector of background of the label
+#' @param w width of the tip. If you indicate a single number it will be recycled. Either provide a vector of widths
+#' @param h height of the tip. Same for w.
+#' @param s shape of the tip "o" is oval. The other option is "r" rectangle.
 #' @return a new nexus file with colors
 #' @examples
 #' inputfile <- file.path(path.package('microbio'),'input.nexus')
@@ -31,7 +31,7 @@ add.nex.features <- function(nexus.file,
                              w=20,
                              h=20,
                              s="o",
-                             f="Dialog-BOLD-16",
+                             f,
                              lc,
                              lk
                              ) {

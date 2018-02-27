@@ -5,19 +5,26 @@
 \title{Color SplitsTree dendrograms}
 \usage{
 add.nex.features(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE,
-  fg = "1 1 1", vlabels, w = 20, h = 20, s = "o",
-  f = "Dialog-BOLD-16", lc, lk)
+  fg = "1 1 1", vlabels, w = 20, h = 20, s = "o", f, lc, lk)
 }
 \arguments{
 \item{tips}{(leaves of the dendrogram)}
 
-\item{w}{width of the tip}
+\item{colors}{vector of the same length of the tips indicating the color of each tip}
 
-\item{h}{height of the tip}
+\item{vlabels}{vector of labels to be plot; leave empty character "" to hide the label.}
 
-\item{s}{shape of the tip "o" is oval. The other oprion is "r" rectangle.}
+\item{w}{width of the tip. If you indicate a single number it will be recycled. Either provide a vector of widths}
 
-\item{f}{fonts of the labels f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN}
+\item{h}{height of the tip. Same for w.}
+
+\item{s}{shape of the tip "o" is oval. The other option is "r" rectangle.}
+
+\item{f}{fonts of the labels. Like "Dialog-BOLD-16" or 'Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN}
+
+\item{lc}{vector of label colors}
+
+\item{lk}{vector of background of the label}
 }
 \value{
 a new nexus file with colors
