@@ -3,8 +3,10 @@
 #' @param nexus.file
 #' @param tips (leaves of the dendrogram)
 #' @param colors
-#' @param vlabels. f='Times New Roman-BOLD-10' lc=204 0 0 lk=0 255 255
-#' @param fonts. 'taxon_X' x=9 y=41 f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN
+#' @param vlabels
+#' @param f fonts of the labels f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN
+#' @param lc
+#' @param lk
 #' @param w width of the tip
 #' @param h height of the tip
 #' @param s shape of the tip "o" is oval. The other oprion is "r" rectangle.
@@ -19,7 +21,20 @@
 #' add.nex.features(nexus.file=inputfile, tips=tips, colors=col, w=ws, h=hs, outfile=outfile)
 #' @export
 #'
-add.nex.features <- function(nexus.file, tips, colors, outfile,fromBIGSdb=FALSE, fg="1 1 1", vlabels="default",w=20,h=20,s="o") {
+add.nex.features <- function(nexus.file,
+                             tips,
+                             colors,
+                             outfile,
+                             fromBIGSdb=FALSE,
+                             fg="1 1 1",
+                             vlabels,
+                             w=20,
+                             h=20,
+                             s="o",
+                             f="Dialog-BOLD-16",
+                             lc,
+                             lk
+                             ) {
 
   if(file.exists(outfile)) {
     system(paste("rm", outfile))
@@ -40,6 +55,7 @@ if( any(is.na(match(tips, map.df$tips))) ) {
   stop("tips and taxa don't match")
   }
 
+# set colors
 if( !is.character(colors) ) {
   stop("'colors' must be a character vector of the same length of tips")
   }
@@ -51,12 +67,25 @@ if( length(tips)!=length(colors) ) {
 map.df$color = colors[match(map.df$tips, tips)]
 map.df$color = as.character(map.df$color)
 
-if(length(vlabels)>1){
+# set valabels
+map.df$vlabels =NA
 
-  map.df$vlabels = vlabels[match(map.df$tips, tips)]
-  map.df$vlabels = as.character(map.df$vlabels)
+if(length(vlabels) != length(tips)){stop("vlabels must be a character vector of the same length of tips.")}
 
-}
+map.df$vlabels = vlabels[match(map.df$tips, tips)]
+map.df$vlabels = as.character(map.df$vlabels)
+
+map.df$lc =NA
+map.df$lc = lc[match(map.df$tips, tips)]
+map.df$lc = as.character(map.df$lc)
+
+map.df$lk =NA
+map.df$lk = lk[match(map.df$tips, tips)]
+map.df$lk = as.character(map.df$lk)
+
+map.df$f =NA
+map.df$f = f[match(map.df$tips, tips)]
+map.df$f = as.character(map.df$f)
 
 # set w and h fpr each node
 map.df$w = NA
@@ -134,8 +163,6 @@ for (i in 1:total){
 }
   ###################
 
-  if(length(vlabels)>1){
-
     if(i > (start.VLABELS) & i < (end.VLABELS) ) {
 
        bits = unlist(strsplit(lineToPrint," "))
@@ -144,25 +171,35 @@ for (i in 1:total){
        pos = match(vertex_id, map.df$vertex_id)
 
        vlab = map.df$vlabels[pos]
-#
-#       pieces = c(bits[1],"'",vlab,"'", bits[3:length(bits)])
-#
-#       lineToPrint = paste(pieces, collapse=" ")
+       lc = paste(col2rgb(map.df$lc[pos]), collapse=" ")
+       lk = paste(col2rgb(map.df$lk[pos]), collapse=" ")
+       f = map.df$f[pos]
 
-      atomic = unlist(strsplit(lineToPrint,""))
-      limits = which(atomic %in% "'")
-      start = limits[1]
-      end = limits[2]
+       if(nchar(vlab)!=0) {
 
-      lineToPrint = paste0(
-          paste(atomic[1:start], collapse=""),
-        vlab,
-        paste(atomic[end:length(atomic)], collapse="")
-        )
+         pieces = c(bits[1],paste0("'",vlab,"'"), bits[3:4], paste0("f='",f,"'"), paste0("lc=", lc), paste0("lk=", lk, ","))
+
+       } else {
+
+
+         pieces = c(bits[1],paste0("'",vlab,"'"), bits[3:4], paste0("f='",f,"'"), paste0("lc=", lc,","))
+
+       }
+
+       lineToPrint = paste(pieces, collapse=" ")
+
+      #atomic = unlist(strsplit(lineToPrint,""))
+      #limits = which(atomic %in% "'")
+      #start = limits[1]
+      #end = limits[2]
+
+      #lineToPrint = paste0(
+      #    paste(atomic[1:start], collapse=""),
+      #  vlab,
+      #  paste(atomic[end:length(atomic)], collapse="")
+      #  )
 
     }
-  } # closes IF VLABELS
-
 
   cat(lineToPrint,"\n", file=outfile, append=TRUE,sep = "")
 

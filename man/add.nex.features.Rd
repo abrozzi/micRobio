@@ -5,7 +5,8 @@
 \title{Color SplitsTree dendrograms}
 \usage{
 add.nex.features(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE,
-  fg = "1 1 1", vlabels = "default", w = 20, h = 20, s = "o")
+  fg = "1 1 1", vlabels, w = 20, h = 20, s = "o",
+  f = "Dialog-BOLD-16", lc, lk)
 }
 \arguments{
 \item{tips}{(leaves of the dendrogram)}
@@ -16,9 +17,7 @@ add.nex.features(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE,
 
 \item{s}{shape of the tip "o" is oval. The other oprion is "r" rectangle.}
 
-\item{vlabels.}{f='Times New Roman-BOLD-10' lc=204 0 0 lk=0 255 255}
-
-\item{fonts.}{'taxon_X' x=9 y=41 f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN}
+\item{f}{fonts of the labels f='Courier-PLAIN-24'. Other option are: Calibri, Arial, Times. For bold -BOLD and not -PLAIN}
 }
 \value{
 a new nexus file with colors
