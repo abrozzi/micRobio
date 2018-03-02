@@ -10,30 +10,39 @@
 #' @param w width of the tip. If you indicate a single number it will be recycled. Either provide a vector of widths
 #' @param h height of the tip. Same for w.
 #' @param s shape of the tip "o" is oval. The other option is "r" rectangle.
+#' @param plot if TRUE SplitsTree is launched and the nexus displayed
+#' @param Splitstree.exe path to the executable of SplitsTree
 #' @return a new nexus file with colors
 #' @examples
 #' inputfile <- file.path(path.package('microbio'),'input.nexus')
 #' outfile <- file.path(path.package('microbio'),'output.nexus')
 #' tips <- c("A","R","G","B")
 #' col <- c("red","blue","green","yellow")
+#' s <- c("r","o","r","o")
 #' ws <- c(10,20,30,40)
 #' hs <- c(10,20,30,40)
-#' add.nex.features(nexus.file=inputfile, tips=tips, colors=col, w=ws, h=hs, outfile=outfile)
+#' fg <- c("blue","orange", "violet", "black")
+#' lc <- c("gray", "cyan", "pink", "blue")
+#' lk <- c("black", "blue", "black", "yellow")
+#' f <- c("Arial-BOLD-20", "Calibri-BOLD-16", "Times-20", "Dialog-BOLDITALIC-25")
+#' custom_nexus(nexus.file=inputfile, tips=tips, colors=col, vlabels=tips, w=ws, f=f, h=hs, lc=lc, lk=lk, fg= fg, s=s, outfile=outfile, plot=TRUE, SplitsTree.exe = "/Applications/SplitsTree/SplitsTree")
 #' @export
 #'
-add.nex.features <- function(nexus.file,
+custom_nexus <- function(nexus.file,
                              tips,
                              colors,
                              outfile,
                              fromBIGSdb=FALSE,
-                             fg="1 1 1",
+                             fg,
                              vlabels,
                              w=20,
                              h=20,
-                             s="o",
+                             s="r",
                              f,
                              lc,
-                             lk
+                             lk,
+                             plot,
+                             SplitsTree.exe="/Applications/SplitsTree/SplitsTree"
                              ) {
 
   if(file.exists(outfile)) {
@@ -90,7 +99,20 @@ map.df$f = as.character(map.df$f)
 # set w and h fpr each node
 map.df$w = NA
 map.df$h = NA
+map.df$s = NA
+map.df$fg = NA
 
+# set s
+if (length(s)==1) {
+  map.df$s = s
+} else {
+
+  map.df$s = s[match(map.df$tips, tips)]
+  map.df$s = as.character(map.df$s)
+
+}
+
+# set w
 if (length(w)==1) {
 map.df$w = w
 } else {
@@ -100,11 +122,20 @@ map.df$w = w
 
 }
 
+# set h
 if (length(h)==1) {
   map.df$h = h
 } else {
   map.df$h = h[match(map.df$tips, tips)]
   map.df$h = as.character(map.df$h)
+}
+
+# set fg
+if (length(fg)==1) {
+  map.df$fg = fg
+} else {
+  map.df$fg = fg[match(map.df$tips, tips)]
+  map.df$fg = as.character(map.df$fg)
 }
 
 start.VERTICES = match("VERTICES", file)
@@ -132,11 +163,12 @@ for (i in 1:total){
 
     if(!is.na(pos)) {
 
-      rgb = paste(col2rgb(map.df$color[pos]), collapse=" ")
+      bg = paste(col2rgb(map.df$color[pos]), collapse=" ")
+      fg = paste(col2rgb(map.df$fg[pos]), collapse=" ")
 
       tmp0 = paste(bits[1:3], collapse = " ")
       tmp0 = gsub(x=tmp0, pat=",", rep="")
-      lineToPrint = paste0(tmp0, " w=",map.df$w[pos], " h=",map.df$h[pos], " s=",s, " fg=", fg," bg=", rgb,",")
+      lineToPrint = paste0(tmp0, " w=",map.df$w[pos], " h=",map.df$h[pos], " s=",map.df$s[pos], " fg=", fg," bg=", bg,",")
 
     } else {
       tmp0 = paste(bits[1:3], collapse = " ")
@@ -146,63 +178,26 @@ for (i in 1:total){
 
   } #closes VERTEX BLOCK
 
-  ###################
-  if(length(vlabels)==1){
 
-    if(vlabels=="none"){
+  ################### VLABELS
 
     if(i > (start.VLABELS) & i < (end.VLABELS) ) {
 
-      b = unlist(strsplit(lineToPrint,""))
-      idx = grep("'",b)
-      M = matrix(c(1,idx,length(b)), ncol=2, byrow = T)
-      pieces = apply(M, 1, function(x) substr(lineToPrint, start = x[1], stop=x[2]))
-      lineToPrint = paste(pieces, collapse="")
-    }
-  }
-}
-  ###################
-
-    if(i > (start.VLABELS) & i < (end.VLABELS) ) {
-
-       bits = unlist(strsplit(lineToPrint," "))
-       vertex_id = bits[1]
-
-       pos = match(vertex_id, map.df$vertex_id)
-
-       vlab = map.df$vlabels[pos]
-       lc = paste(col2rgb(map.df$lc[pos]), collapse=" ")
-       lk = paste(col2rgb(map.df$lk[pos]), collapse=" ")
-       f = map.df$f[pos]
-
-       if(nchar(vlab)!=0) {
-
-         pieces = c(bits[1],paste0("'",vlab,"'"), bits[3:4], paste0("f='",f,"'"), paste0("lc=", lc), paste0("lk=", lk, ","))
-
-       } else {
-
-
-         pieces = c(bits[1],paste0("'",vlab,"'"), bits[3:4], paste0("f='",f,"'"), paste0("lc=", lc,","))
-
-       }
+      pieces = assign.vfeatures(line=lineToPrint, DF=map.df)
 
        lineToPrint = paste(pieces, collapse=" ")
-
-      #atomic = unlist(strsplit(lineToPrint,""))
-      #limits = which(atomic %in% "'")
-      #start = limits[1]
-      #end = limits[2]
-
-      #lineToPrint = paste0(
-      #    paste(atomic[1:start], collapse=""),
-      #  vlab,
-      #  paste(atomic[end:length(atomic)], collapse="")
-      #  )
 
     }
 
   cat(lineToPrint,"\n", file=outfile, append=TRUE,sep = "")
 
 } # closes for()
+
+if(plot) {
+
+command = paste0(SplitsTree.exe, " -i ", outfile, " & ")
+system(command)
+
+}
 
 }
