@@ -21,11 +21,12 @@
 #' s <- c("r","o","r","o")
 #' ws <- c(10,20,30,40)
 #' hs <- c(10,20,30,40)
-#' fg <- c("blue","orange", "violet", "black")
+#' fg <- c("blue","orange", "violet", "gray8")
 #' lc <- c("gray", "cyan", "pink", "blue")
 #' lk <- c("black", "blue", "black", "yellow")
+#' edgecolor <- "blue"
 #' f <- c("Arial-BOLD-20", "Calibri-BOLD-16", "Times-20", "Dialog-BOLDITALIC-25")
-#' custom_nexus(nexus.file=inputfile, tips=tips, colors=col, vlabels=tips, w=ws, f=f, h=hs, lc=lc, lk=lk, fg= fg, s=s, outfile=outfile, plot=TRUE, SplitsTree.exe = "/Applications/SplitsTree/SplitsTree")
+#' custom_nexus(nexus.file=inputfile, tips=tips, colors=col, vlabels=tips, w=ws, f=f, h=hs, lc=lc, lk=lk, fg= fg, s=s, edgecolor=edgecolor, outfile=outfile, plot=TRUE, SplitsTree.exe = "/Applications/SplitsTree/SplitsTree")
 #' @export
 #'
 custom_nexus <- function(nexus.file,
@@ -41,6 +42,7 @@ custom_nexus <- function(nexus.file,
                              f,
                              lc,
                              lk,
+                         edgecolor="gray",
                              plot,
                              SplitsTree.exe="/Applications/SplitsTree/SplitsTree"
                              ) {
@@ -144,6 +146,11 @@ end.VERTICES = ends[ends>start.VERTICES][1]
 start.VLABELS =  match("VLABELS", file)
 end.VLABELS =  ends[ends>start.VLABELS][1]
 
+start.EDGES =  match("EDGES", file)
+end.EDGES =  ends[ends>start.EDGES][1]
+
+ecol = paste(col2rgb(edgecolor), collapse=" ")
+
 total = length(file)
 
 progBar <- txtProgressBar(min = 0, max = total, style = 3)
@@ -188,8 +195,21 @@ for (i in 1:total){
        lineToPrint = paste(pieces, collapse=" ")
 
     }
+  ################### EDGES
+
+  if(i > (start.EDGES) & i < (end.EDGES) ) {
+
+    ltp = gsub(x=lineToPrint, pat=",", rep="")
+    ltp = paste(ltp, paste0("fg=",ecol,","))
+
+    lineToPrint = ltp
+
+  }
 
   cat(lineToPrint,"\n", file=outfile, append=TRUE,sep = "")
+
+
+
 
 } # closes for()
 
