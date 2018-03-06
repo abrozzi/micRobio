@@ -9,6 +9,7 @@
 #' @param lk vector of background of the label
 #' @param w width of the tip. If you indicate a single number it will be recycled. Either provide a vector of widths
 #' @param h height of the tip. Same for w.
+#' @param edgecolor the color of the edges
 #' @param s shape of the tip "o" is oval. The other option is "r" rectangle.
 #' @param plot if TRUE SplitsTree is launched and the nexus displayed
 #' @param Splitstree.exe path to the executable of SplitsTree
@@ -180,7 +181,7 @@ for (i in 1:total){
     } else {
       tmp0 = paste(bits[1:3], collapse = " ")
       tmp0 = gsub(x=tmp0, pat=",", rep="")
-      lineToPrint = paste0(tmp0, " fg=1 1 1 bg=1 1 1,")
+      lineToPrint = paste0(tmp0, " fg=196 196 196 bg=196 196 196,")
     }
 
   } #closes VERTEX BLOCK
