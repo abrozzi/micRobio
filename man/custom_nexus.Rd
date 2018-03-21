@@ -27,6 +27,8 @@ custom_nexus(nexus.file, tips, colors, outfile, fromBIGSdb = FALSE, fg,
 
 \item{lk}{vector of background of the label}
 
+\item{edgecolor}{the color of the edges}
+
 \item{plot}{if TRUE SplitsTree is launched and the nexus displayed}
 
 \item{Splitstree.exe}{path to the executable of SplitsTree}
