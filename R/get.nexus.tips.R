@@ -18,7 +18,7 @@ get.nexus.tips <- function(nexus.file,fromBIGSdb=FALSE){
 
   for(i in (startTRANS+1):(endTRANS-1)) {
     line = file[i]
-    item0 = unlist(strsplit(line," "))
+    item0 = unlist(strsplit(line,"\n"))
 
     key = item0[1]
 
