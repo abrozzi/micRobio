@@ -8,4 +8,4 @@ Maintainer: <alessandro.brozzi@gmail.com>
 Description: A set of R functions, tools, utilities and wrappers to perform bionformatic analyses applied to microbiology.
 License: GPL
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1

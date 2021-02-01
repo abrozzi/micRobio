@@ -1,3 +1,6 @@
+#'
+#' @export
+#'
 read.breseq.gd <- function(file.gd) {
 
   RES = list()
