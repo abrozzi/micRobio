@@ -23,8 +23,10 @@ read.breseq.gd <- function(file.gd) {
 
       RES[["SNP"]] = readSNP(file)
 
-    }
+    } else { RES[[type]] = NULL}
 
   }
+
+  return(RES)
 
 }
