@@ -1,8 +1,9 @@
 #'
 #' @export
 #' @author Alessandro Brozzi
-#' @param a gd.file
+#' @param a file with extension .gd
 #' @return a list of one item "SNP" containing a dataframe with data extracted from SNP lines
+#' @example read.breseq.gd("inst/SNP.gd")
 #'
 read.breseq.gd <- function(file.gd) {
 
